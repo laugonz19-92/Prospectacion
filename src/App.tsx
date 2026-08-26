@@ -1,4 +1,4 @@
-import { Agent1Investigator as AgentInvestigatorView } from './components/Agent1Investigator';
+
 import React, { useState } from 'react';
 import { EducationalProject, ApiKeysConfig } from './types/agents';
 import { INITIAL_PROJECTS } from './services/mockData';
