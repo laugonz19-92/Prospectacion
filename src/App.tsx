@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { EducationalProject, ApiKeysConfig } from './types/agents';
 import { INITIAL_PROJECTS } from './services/mockData';
-import { Agent1InvestigatorView } from './components/AgentInvestigatorView';
+import { Agent1InvestigatorView as AgentInvestigatorView } from './components/Agent1InvestigatorView';
 import { AgentInventoryView } from './components/AgentInventoryView';
 import { ConnectionGuideModal } from './components/ConnectionGuideModal';
 import { SettingsModal } from './components/SettingsModal';
