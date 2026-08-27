@@ -201,3 +201,58 @@ Formato estricto JSON array conforme a TypeScript EducationalProject.`;
     return parsed.projects || parsed;
   }
 }
+// Integración de servicio complementario para APIs Gratuitas (Groq / Simulación)
+export interface OpportunityLead {
+  id: string;
+  institutionName: string;
+  projectType: string;
+  status: 'Detectado' | 'En Análisis' | 'Contactado';
+  confidenceScore: number;
+  sourceUrl?: string;
+}
+
+export const fetchEducationalLeads = async (apiKey?: string): Promise<OpportunityLead[]> => {
+  if (!apiKey) {
+    return [
+      {
+        id: 'lead-001',
+        institutionName: 'Colegio Campestre del Norte',
+        projectType: 'Ampliación de Infraestructura & Cafetería',
+        status: 'Detectado',
+        confidenceScore: 0.92
+      },
+      {
+        id: 'lead-002',
+        institutionName: 'Instituto Innovación Educativa',
+        projectType: 'Remodelación de Aulas & Laboratorios',
+        status: 'En Análisis',
+        confidenceScore: 0.88
+      }
+    ];
+  }
+
+  const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${apiKey}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      model: 'llama-3.3-70b-versatile',
+      messages: [
+        {
+          role: 'system',
+          content: 'Eres un analista de prospección comercial B2B enfocado en infraestructura y licencias educativas.'
+        },
+        {
+          role: 'user',
+          content: 'Analiza las fuentes de información y retorna las oportunidades detectadas.'
+        }
+      ],
+      temperature: 0.2
+    })
+  });
+
+  const data = await response.json();
+  return data.choices ? data.choices : [];
+};
