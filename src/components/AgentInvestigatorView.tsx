@@ -32,7 +32,6 @@ export const AgentInvestigatorView: React.FC = () => {
   const [savedIds, setSavedIds] = useState<string[]>([]);
 
   useEffect(() => {
-    // Identificar qué leads ya se encuentran guardados en el almacenamiento local
     const saved = getLocalLeads();
     setSavedIds(saved.map((item) => item.id));
   }, []);
@@ -63,7 +62,6 @@ export const AgentInvestigatorView: React.FC = () => {
 
   return (
     <div className="p-6 max-w-7xl mx-auto space-y-6">
-      {/* Encabezado y Disparador de Prospección */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center bg-gray-900 p-6 rounded-xl border border-gray-800 gap-4">
         <div>
           <h2 className="text-2xl font-bold text-white">Agente 1: Detector de Oportunidades</h2>
@@ -80,7 +78,6 @@ export const AgentInvestigatorView: React.FC = () => {
         </button>
       </div>
 
-      {/* Tabla de Oportunidades */}
       <div className="bg-gray-900 border border-gray-800 rounded-xl overflow-hidden shadow-xl">
         <div className="p-4 border-b border-gray-800">
           <h3 className="text-lg font-semibold text-white">
