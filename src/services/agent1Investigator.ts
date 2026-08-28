@@ -256,3 +256,29 @@ export const fetchEducationalLeads = async (apiKey?: string): Promise<Opportunit
   const data = await response.json();
   return data.choices ? data.choices : [];
 };
+// Clave para almacenamiento en navegador
+const STORAGE_KEY = 'eduintel_leads_data';
+
+// Obtener leads guardados localmente
+export const getLocalLeads = (): OpportunityLead[] => {
+  try {
+    const data = localStorage.getItem(STORAGE_KEY);
+    return data ? JSON.parse(data) : [];
+  } catch (e) {
+    console.error('Error leyendo LocalStorage:', e);
+    return [];
+  }
+};
+
+// Guardar nuevo lead localmente para consumo del Agente 2
+export const saveLocalLead = (newLead: OpportunityLead): OpportunityLead[] => {
+  try {
+    const currentLeads = getLocalLeads();
+    const updatedLeads = [newLead, ...currentLeads];
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedLeads));
+    return updatedLeads;
+  } catch (e) {
+    console.error('Error guardando en LocalStorage:', e);
+    return [];
+  }
+};
